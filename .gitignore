@@ -13,6 +13,9 @@ tmtags
 ## VIM
 *.swp
 
+## RUBYMINE
+.idea
+
 ## PROJECT::GENERAL
 coverage
 rdoc
@@ -24,3 +27,4 @@ test_active_record.rb
 spec/config.yml
 .yardoc
 doc
+*.gem

@@ -33,7 +33,10 @@ module Friendly
       end
 
       def to_hash
-        Hash[*self.class.attributes.keys.map { |n| [n, send(n)] }.flatten]
+        self.class.attributes.keys.inject({}) do |memo, key|
+          memo[key] = send(key)
+          memo
+        end
       end
 
       def assign_default_values

@@ -19,7 +19,7 @@ module Friendly
     def initialize(bytes = nil)
       case bytes
       when self.class # UUID
-        @bytes = bytes.to_s
+        @bytes = bytes.to_bytes
       when String
         case bytes.size
         when 16 # Raw byte array
@@ -69,7 +69,7 @@ module Friendly
 
     def version
       time_high = @bytes.unpack("NnnQ")[2]
-      version = (time_high & 0xF000).to_s(16)[0].chr.to_i
+      version = (time_high & 0xF000).to_bytes(16)[0].chr.to_i
       version > 0 and version < 6 ? version : -1
     end
 
@@ -119,7 +119,7 @@ module Friendly
     end
 
     def eql?(other)
-      other.is_a?(Comparable) and @bytes == other.to_s
+      other.is_a?(Comparable) and @bytes == other.to_bytes
     end
 
     def ==(other)
@@ -127,11 +127,15 @@ module Friendly
     end
 
     def to_s
+      to_guid
+    end
+
+    def to_bytes
       @bytes
     end
 
     def sql_literal(dataset)
-      dataset.literal(to_s.to_sequel_blob)
+      dataset.literal(to_bytes.to_sequel_blob)
     end
 
     private

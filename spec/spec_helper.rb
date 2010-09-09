@@ -1,9 +1,11 @@
+require 'rubygems'
+gem 'activesupport', '= 2.3.4'
+
 $LOAD_PATH.unshift(File.dirname(__FILE__))
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 Dir[File.expand_path(File.dirname(__FILE__)) + "/fakes/*.rb"].each do |f|
   require f
 end
-require 'rubygems'
 require 'spec'
 require 'spec/autorun'
 require 'sequel'
@@ -12,6 +14,7 @@ gem     'jferris-mocha'
 require 'mocha'
 require 'memcached'
 require 'friendly'
+
 
 config = YAML.load(File.read(File.dirname(__FILE__) + "/config.yml"))['test']
 Friendly.configure config

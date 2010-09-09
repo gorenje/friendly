@@ -63,9 +63,43 @@ describe "limiting a query with offset" do
   end
 end
 
-describe "all with only order" do
-  it "queries the index" do
-    Address.create
-      Address.all(:order! => :created_at.desc, :limit! => 5)
+describe "All queries without conditions" do
+  before do
+    User.all.map(&:destroy)
+    @users = [
+      User.create(:name => "Stewie Griffin"),
+      User.create(:name => "Peter Griffin"),
+      User.create(:name => "Quagmire"),
+    ]
+  end
+  
+  it "returns the whole set of documents" do
+    User.all.should == @users
+  end
+end
+
+describe "First queries without conditions" do
+  before do
+    User.all.map(&:destroy)
+    @first = User.create(:name => "Stewie Griffin")
+    User.create(:name => "Peter Griffin")
+  end
+  
+  it "returns the first document in the set" do
+    User.first.should == @first
+  end
+end
+
+describe "First queries that have an order" do
+  before do
+    User.all.map(&:destroy)
+    @zzzz = User.create(:name => "ZZZZ")
+    @aaaa = User.create(:name => "AAAA")
+    @mmmm = User.create(:name => "MMMM")
+  end
+  
+  it "returns documents in the correct order" do
+    User.first(:order! => :name.desc).should == @zzzz
+    User.first(:order! => :name.asc).should == @aaaa
   end
 end

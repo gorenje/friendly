@@ -111,4 +111,3 @@ describe "An object that has a foreign key" do
     }.should_not raise_error
   end
 end
-

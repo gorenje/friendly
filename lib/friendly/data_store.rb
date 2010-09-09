@@ -14,6 +14,7 @@ module Friendly
     def all(persistable, query)
       filtered = dataset(persistable)
       filtered = filtered.where(query.conditions) unless query.conditions.empty?
+
       if query.limit || query.offset
         filtered = filtered.limit(query.limit, query.offset)
       end
@@ -22,7 +23,14 @@ module Friendly
     end
 
     def first(persistable, query)
-      dataset(persistable).first(query.conditions)
+      filtered = dataset(persistable)
+      filtered = filtered.order(query.order) if query.order
+      
+      if query.conditions.empty?
+        filtered.first   
+      else
+        filtered.first(query.conditions)        
+      end
     end
 
     def update(persistable, id, attributes)

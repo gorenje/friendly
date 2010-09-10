@@ -20,6 +20,20 @@ module Friendly
           doc.reset_changes
           doc
         end
+
+        def use_dynamic_attributes(opts={})
+          @create_dynamic_attributes = opts
+        end
+
+        def handle_unknown_attribute(obj, excep, name, value)
+          if defined?(@create_dynamic_attributes)
+            attribute(name.to_sym, @create_dynamic_attributes[:type] || value.class, 
+                      { :default => @create_dynamic_attributes[:default] } )
+            obj.send(:"#{name}=", value)
+          else
+            raise excep
+          end
+        end
       end
 
       def initialize(opts = {})
@@ -45,6 +59,8 @@ module Friendly
 
       def assign(name, value)
         send(:"#{name}=", value)
+      rescue NoMethodError => e
+        self.class.handle_unknown_attribute(self,e,name,value)
       end
 
       # Notify the object that an attribute is about to change.

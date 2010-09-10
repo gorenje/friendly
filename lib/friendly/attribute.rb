@@ -30,6 +30,7 @@ module Friendly
 
     converters[Integer] = lambda { |s| s.to_i }
     converters[String]  = lambda { |s| s.to_s }
+    converters[Fixnum]  = lambda { |s| s.to_i }
     
     attr_reader :klass, :name, :type, :default_value
 
@@ -85,7 +86,7 @@ module Friendly
 
       def assert_converter_exists(value)
         unless converters.has_key?(type)
-          msg = "Can't convert #{value} to #{type}. 
+          msg = "Can't convert #{value} (of class #{value.class.name}) to #{type}. 
                  Add a custom converter to Friendly::Attribute::CONVERTERS."
           raise NoConverterExists, msg
         end

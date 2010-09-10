@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["James Golick"]
-  s.date = %q{2010-09-09}
+  s.date = %q{2010-09-10}
   s.description = %q{}
   s.email = %q{jamesgolick@gmail.com}
   s.extra_rdoc_files = [
@@ -28,8 +28,7 @@ Gem::Specification.new do |s|
      "TODO.md",
      "VERSION",
      "examples/friendly.yml",
-     "friendly.gemspec",
-     "honkster-friendly.gemspec",
+     "gorenje-friendly.gemspec",
      "lib/friendly.rb",
      "lib/friendly/associations.rb",
      "lib/friendly/associations/association.rb",
@@ -191,6 +190,7 @@ Gem::Specification.new do |s|
      "spec/unit/cache_spec.rb",
      "spec/unit/data_store_spec.rb",
      "spec/unit/document/attributes_spec.rb",
+     "spec/unit/document/dynamic_attributes_spec.rb",
      "spec/unit/document_spec.rb",
      "spec/unit/document_table_spec.rb",
      "spec/unit/friendly_spec.rb",

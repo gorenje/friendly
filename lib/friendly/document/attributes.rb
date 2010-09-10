@@ -22,7 +22,7 @@ module Friendly
         end
 
         def dynamic_attributes_opts
-          defined?(@create_dynamic_attributes_opts) ? @create_dynamic_attributes_opts : false
+          defined?(@create_dynamic_attributes_opts) && @create_dynamic_attributes_opts
         end
 
         def use_dynamic_attributes(opts={})

@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{gorenje-friendly}
-  s.version = "0.5.3"
+  s.version = "0.5.4"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["James Golick"]
@@ -99,6 +99,7 @@ Gem::Specification.new do |s|
      "spec/unit/document/attributes_spec.rb",
      "spec/unit/document_spec.rb",
      "spec/unit/document_table_spec.rb",
+     "spec/unit/dynamic_attributes_spec.rb",
      "spec/unit/friendly_spec.rb",
      "spec/unit/index_spec.rb",
      "spec/unit/memcached_spec.rb",
@@ -190,9 +191,9 @@ Gem::Specification.new do |s|
      "spec/unit/cache_spec.rb",
      "spec/unit/data_store_spec.rb",
      "spec/unit/document/attributes_spec.rb",
-     "spec/unit/document/dynamic_attributes_spec.rb",
      "spec/unit/document_spec.rb",
      "spec/unit/document_table_spec.rb",
+     "spec/unit/dynamic_attributes_spec.rb",
      "spec/unit/friendly_spec.rb",
      "spec/unit/index_spec.rb",
      "spec/unit/memcached_spec.rb",

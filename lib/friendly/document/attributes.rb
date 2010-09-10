@@ -21,18 +21,12 @@ module Friendly
           doc
         end
 
-        def use_dynamic_attributes(opts={})
-          @create_dynamic_attributes = opts
+        def dynamic_attributes_opts
+          defined?(@create_dynamic_attributes_opts) ? @create_dynamic_attributes_opts : false
         end
 
-        def handle_unknown_attribute(obj, excep, name, value)
-          if defined?(@create_dynamic_attributes)
-            attribute(name.to_sym, @create_dynamic_attributes[:type] || value.class, 
-                      { :default => @create_dynamic_attributes[:default] } )
-            obj.send(:"#{name}=", value)
-          else
-            raise excep
-          end
+        def use_dynamic_attributes(opts={})
+          @create_dynamic_attributes_opts = opts
         end
       end
 
@@ -60,7 +54,7 @@ module Friendly
       def assign(name, value)
         send(:"#{name}=", value)
       rescue NoMethodError => e
-        self.class.handle_unknown_attribute(self,e,name,value)
+        handle_unknown_attribute(e,name,value)
       end
 
       # Notify the object that an attribute is about to change.
@@ -123,6 +117,16 @@ module Friendly
       end
 
       protected
+        def handle_unknown_attribute(excep, name, value)
+          if (opts = self.class.dynamic_attributes_opts)
+            self.class.attribute(name.to_sym, opts[:type] || value.class, 
+                                 {:default => opts[:default]})
+            send(:"#{name}=", value)
+          else
+            raise excep
+          end
+        end
+
         def assert_no_duplicate_keys(hash)
           if hash.keys.map { |k| k.to_s }.uniq.length < hash.keys.length
             raise ArgumentError, "Duplicate keys: #{hash.inspect}"
